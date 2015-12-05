@@ -59,15 +59,3 @@ func updateCachedBill(amount: Double) {
     defaults.setDouble(NSDate().timeIntervalSince1970 + 60 * cacheExpiryMins, forKey: CACHE_EXPIRY_KEY)
     defaults.synchronize()
 }
-
-func currentLocale() -> NSLocale {
-    if let storedLocale = defaults.stringForKey(LOCALE_KEY) {
-        return NSLocale(localeIdentifier: storedLocale)
-    }
-    return NSLocale.currentLocale()
-}
-
-func setLocale(locale: NSLocale) {
-    defaults.setValue(locale.localeIdentifier, forKey:LOCALE_KEY)
-    defaults.synchronize()
-}

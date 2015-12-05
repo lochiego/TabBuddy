@@ -157,26 +157,12 @@
                                     <action selector="hitSwitch" destination="gAk-LZ-1lC" eventType="valueChanged" id="Kyd-CY-WRX"/>
                                 </connections>
                             </switch>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Locale" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VvY-uS-4s4">
-                                <rect key="frame" x="20" y="250" width="50" height="21"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H0M-iu-9zt">
-                                <rect key="frame" x="254" y="246" width="46" height="30"/>
-                                <animations/>
-                                <state key="normal" title="Button"/>
-                            </button>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="eyZ-Im-jZF"/>
                     <connections>
-                        <outlet property="localeButton" destination="H0M-iu-9zt" id="sRC-XB-qIP"/>
-                        <outlet property="localeLabel" destination="VvY-uS-4s4" id="DAK-Ty-qgI"/>
                         <outlet property="themeLabel" destination="B9C-dq-fmJ" id="efi-lH-Ewt"/>
                         <outlet property="themeSwitch" destination="NsQ-Fj-Xb4" id="Wt9-KF-vpR"/>
                         <outlet property="tipLabel" destination="zRs-pv-2OM" id="Gi1-re-v4c"/>

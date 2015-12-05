@@ -43,8 +43,6 @@ class ViewController: UIViewController {
         totalTitleLabel.textColor = foregroundColor
         totalLabel.textColor = foregroundColor
         tipSeg.tintColor = getThemeSegColor()
-        
-        billField.attributedPlaceholder = NSAttributedString(string: currencyFormatter.currencySymbol, attributes: [NSForegroundColorAttributeName:UIColor.lightTextColor()])
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -81,10 +79,12 @@ class ViewController: UIViewController {
     
     @IBAction func billChanged() {
         let billText = billField.text!
-        
+
         if (valuesHidden != billText.isEmpty) {
             valuesHidden = !valuesHidden
             updateVisibility(valuesHidden)
+            
+            billField.attributedPlaceholder = NSAttributedString(string: currencyFormatter.currencySymbol, attributes: [NSForegroundColorAttributeName:UIColor.lightTextColor()])
         }
         
         let billAmount = (billText as NSString).doubleValue

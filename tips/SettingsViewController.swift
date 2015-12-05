@@ -38,7 +38,6 @@ class SettingsViewController: UIViewController {
         // Do any additional setup after loading the view.
         tipSeg.selectedSegmentIndex = getDefaultTipIndex()
         themeSwitch.setOn(isThemeDark(), animated: false)
-        localeButton.setTitle(<#T##title: String?##String?#>, forState: <#T##UIControlState#>)
     }
 
     override func didReceiveMemoryWarning() {
