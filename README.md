@@ -4,7 +4,7 @@ TabBuddy is a tip calculator application for iOS.
 
 Submitted by: Eric Gonzalez
 
-Time spent: 4:30 hours spent in total
+Time spent: 5:00 hours spent in total
 
 ## User Stories
 
