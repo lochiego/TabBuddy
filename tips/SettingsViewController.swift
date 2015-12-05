@@ -15,6 +15,8 @@ class SettingsViewController: UIViewController {
     @IBOutlet weak var tipSeg: UISegmentedControl!
     @IBOutlet weak var themeLabel: UILabel!
     @IBOutlet weak var themeSwitch: UISwitch!
+    @IBOutlet weak var localeLabel: UILabel!
+    @IBOutlet weak var localeButton: UIButton!
     
     private func applyTheme() {
         view.backgroundColor = getThemeBackgroundColor()
@@ -22,6 +24,8 @@ class SettingsViewController: UIViewController {
         tipLabel.textColor = foregroundColor
         tipSeg.tintColor = getThemeSegColor()
         themeLabel.textColor = foregroundColor
+        localeLabel.textColor = foregroundColor
+        localeButton.tintColor = getThemeSegColor()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -34,6 +38,7 @@ class SettingsViewController: UIViewController {
         // Do any additional setup after loading the view.
         tipSeg.selectedSegmentIndex = getDefaultTipIndex()
         themeSwitch.setOn(isThemeDark(), animated: false)
+        localeButton.setTitle(<#T##title: String?##String?#>, forState: <#T##UIControlState#>)
     }
 
     override func didReceiveMemoryWarning() {
