@@ -40,7 +40,9 @@ class ViewController: UIViewController {
         sliderView.backgroundColor = backgroundColor
         
         updateForegrounds(view)
-        billField.attributedPlaceholder = NSAttributedString(string: currencyFormatter.currencySymbol, attributes: [NSForegroundColorAttributeName:UIColor ( red: 0.498, green: 0.498, blue: 0.498, alpha: 1.0 )])
+        let currencySymbol = currencyFormatter.currencySymbol
+        print(currencySymbol)
+        billField.attributedPlaceholder = NSAttributedString(string: currencySymbol, attributes: [NSForegroundColorAttributeName:UIColor ( red: 0.498, green: 0.498, blue: 0.498, alpha: 1.0 )])
         tipSlider.minimumTrackTintColor = getThemeSegColor()
     }
     
