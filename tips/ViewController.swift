@@ -65,13 +65,12 @@ class ViewController: UIViewController {
         let cachedAmount = getCachedBill()
         billField.text = cachedAmount == 0 ? "" : String(format:"%.2f", cachedAmount)
         billChanged()
-        
-        billField.becomeFirstResponder()
     }
     
     override func viewDidAppear(animated: Bool) {
         tipSeg.selectedSegmentIndex = getDefaultTipIndex()
         billChanged()
+        billField.becomeFirstResponder()
     }
 
     override func didReceiveMemoryWarning() {
