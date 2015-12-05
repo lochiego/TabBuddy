@@ -36,19 +36,21 @@ class ViewController: UIViewController {
         }
     }
     
+    let textColorSelector = Selector("setTextColor:")
+
     private func applyTheme() {
         let backgroundColor = getThemeBackgroundColor()
         view.backgroundColor = backgroundColor
         sliderView.backgroundColor = backgroundColor
         
         let foregroundColor = getThemeForegroundColor()
-        billLabel.textColor = foregroundColor
-        billField.textColor = foregroundColor
-        tipTitleLabel.textColor = foregroundColor
-        tipLabel.textColor = foregroundColor
-        totalTitleLabel.textColor = foregroundColor
-        totalLabel.textColor = foregroundColor
-//        tipSeg.tintColor = getThemeSegColor()
+        
+        for subView in view.subviews where subView is UILabel || subView is UITextField {
+            if subView.respondsToSelector(textColorSelector) {
+                subView.performSelector(textColorSelector, withObject: foregroundColor)
+            }
+        }
+        
         tipSlider.minimumTrackTintColor = getThemeSegColor()
         for view in sliderView.subviews where view.isKindOfClass(UILabel) {
             (view as! UILabel).textColor = foregroundColor
@@ -100,13 +102,21 @@ class ViewController: UIViewController {
         }
         
         let billAmount = (billText as NSString).doubleValue
-        let tip = billAmount * tipPercentages[0]//tipSeg.selectedSegmentIndex]
+        let tipPercent = Int(tipSlider.value)
+        let tip = billAmount * Double(tipPercent)
         let total = billAmount + tip
         
         tipLabel.text = currencyFormatter.stringFromNumber(tip)
+        tipTitleLabel.text = "Tip (\(tipPercent)%)"
         totalLabel.text = currencyFormatter.stringFromNumber(total)
         
         updateCachedBill(billAmount)
+    }
+    
+    @IBAction func sliderChanged(slider: UISlider) {
+        let newValue = roundf(slider.value)
+        slider.setValue(newValue, animated: true)
+        billChanged()
     }
     
     @IBAction func dismissKeyboard(sender: AnyObject) {
