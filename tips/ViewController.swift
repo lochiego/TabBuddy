@@ -54,7 +54,7 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         
         let cachedAmount = getCachedBill()
-        billField.text = cachedAmount == 0 ? "" : "\(cachedAmount)"
+        billField.text = cachedAmount == 0 ? "" : String(format: "%.2f", cachedAmount)
         billChanged()
         
         billField.becomeFirstResponder()
