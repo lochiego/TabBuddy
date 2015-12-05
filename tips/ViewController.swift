@@ -17,7 +17,6 @@ class ViewController: UIViewController {
     @IBOutlet weak var separatorView: UIView!
     @IBOutlet weak var totalTitleLabel: UILabel!
     @IBOutlet weak var totalLabel: UILabel!
-//    @IBOutlet weak var tipSeg: UISegmentedControl!
     @IBOutlet weak var tipSlider: UISlider!
     @IBOutlet weak var sliderView: UIView!
     
@@ -31,7 +30,6 @@ class ViewController: UIViewController {
             self.separatorView.alpha = alpha
             self.totalTitleLabel.alpha = alpha
             self.totalLabel.alpha = alpha
-//            self.tipSeg.alpha = alpha
             self.sliderView.alpha = alpha
         }
     }
@@ -42,11 +40,8 @@ class ViewController: UIViewController {
         sliderView.backgroundColor = backgroundColor
         
         updateForegrounds(view)
-        
+        billField.attributedPlaceholder = NSAttributedString(string: currencyFormatter.currencySymbol, attributes: [NSForegroundColorAttributeName:UIColor ( red: 0.498, green: 0.498, blue: 0.498, alpha: 1.0 )])
         tipSlider.minimumTrackTintColor = getThemeSegColor()
-
-        let foregroundColor = getThemeForegroundColor()
-        billField.attributedPlaceholder = NSAttributedString(string: currencyFormatter.currencySymbol, attributes: [NSForegroundColorAttributeName:foregroundColor])
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -70,7 +65,7 @@ class ViewController: UIViewController {
     }
     
     override func viewDidAppear(animated: Bool) {
-//        tipSeg.selectedSegmentIndex = getDefaultTipIndex()
+        tipSlider.value = getDefaultTip()
         billChanged()
         billField.becomeFirstResponder()
     }
@@ -86,8 +81,6 @@ class ViewController: UIViewController {
         if (valuesHidden != billText.isEmpty) {
             valuesHidden = !valuesHidden
             updateVisibility(valuesHidden)
-            
-            billField.attributedPlaceholder = NSAttributedString(string: currencyFormatter.currencySymbol, attributes: [NSForegroundColorAttributeName:getThemeForegroundColor()])
         }
         
         let billAmount = (billText as NSString).doubleValue
