@@ -49,12 +49,18 @@ class ViewController: UIViewController {
         applyTheme()
     }
     
+    var currencyFormatter: NSNumberFormatter!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
+        currencyFormatter = NSNumberFormatter()
+        currencyFormatter.numberStyle = .CurrencyStyle
+        currencyFormatter.usesGroupingSeparator = true
+        
         let cachedAmount = getCachedBill()
-        billField.text = cachedAmount == 0 ? "" : String(format: "%.2f", cachedAmount)
+        billField.text = currencyFormatter.stringFromNumber(cachedAmount)
         billChanged()
         
         billField.becomeFirstResponder()
@@ -72,19 +78,21 @@ class ViewController: UIViewController {
     
     @IBAction func billChanged() {
         let billText = billField.text!
-        if (valuesHidden != billText.isEmpty) {
-            valuesHidden = !valuesHidden
-            updateVisibility(valuesHidden)
+        
+        if let billAmount = currencyFormatter.numberFromString(billText)?.doubleValue {
+            if (valuesHidden != (billAmount == 0)) {
+                valuesHidden = !valuesHidden
+                updateVisibility(valuesHidden)
+            }
+
+            let tip = billAmount * tipPercentages[tipSeg.selectedSegmentIndex]
+            let total = billAmount + tip
+            
+            tipLabel.text = String(format: "$%.2f", tip)
+            totalLabel.text = String(format: "$%.2f", total)
+            
+            updateCachedBill(billAmount)
         }
-        
-        let billAmount = (billText as NSString).doubleValue
-        let tip = billAmount * tipPercentages[tipSeg.selectedSegmentIndex]
-        let total = billAmount + tip
-        
-        tipLabel.text = String(format: "$%.2f", tip)
-        totalLabel.text = String(format: "$%.2f", total)
-        
-        updateCachedBill(billAmount)
     }
 
     @IBAction func dismissKeyboard(sender: AnyObject) {
