@@ -16,15 +16,15 @@ private let CACHE_BILL_KEY = "cachedBill"
 private let LOCALE_KEY = "locale"
 private let cacheExpiryMins = 10.0
 
-let tipPercentages = [0.18, 0.20, 0.22]
+private let tipPercentages = [5.0, 10.0, 15.0, 20.0, 25.0]
 let defaults = NSUserDefaults.standardUserDefaults()
 
-func getDefaultTipIndex() -> Int {
-    return defaults.integerForKey(DEFAULT_TIP_KEY)
+func getDefaultTip() -> Float {
+    return defaults.floatForKey(DEFAULT_TIP_KEY)
 }
 
-func setTipIndex(index: Int) {
-    defaults.setInteger(index, forKey: DEFAULT_TIP_KEY)
+func setDefaultTip(tip: Float) {
+    defaults.setFloat(tip, forKey: DEFAULT_TIP_KEY)
     defaults.synchronize()
 }
 
@@ -58,4 +58,20 @@ func updateCachedBill(amount: Double) {
     defaults.setDouble(amount, forKey: CACHE_BILL_KEY)
     defaults.setDouble(NSDate().timeIntervalSince1970 + 60 * cacheExpiryMins, forKey: CACHE_EXPIRY_KEY)
     defaults.synchronize()
+}
+
+let textColorSelector = Selector("setTextColor:")
+
+func updateForegrounds(view: UIView) {
+    let foregroundColor = getThemeForegroundColor()
+
+    for subView in view.subviews {
+        if subView.respondsToSelector(textColorSelector) {
+            subView.performSelector(textColorSelector, withObject: foregroundColor)
+        }
+        if let textField = subView as? UITextField {
+            textField.keyboardAppearance = !isThemeDark() ? .Light : .Dark
+        }
+        updateForegrounds(subView)
+    }
 }

@@ -17,7 +17,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var separatorView: UIView!
     @IBOutlet weak var totalTitleLabel: UILabel!
     @IBOutlet weak var totalLabel: UILabel!
-    @IBOutlet weak var tipSeg: UISegmentedControl!
+    @IBOutlet weak var tipSlider: UISlider!
+    @IBOutlet weak var sliderView: UIView!
     
     var valuesHidden = true
     
@@ -29,22 +30,20 @@ class ViewController: UIViewController {
             self.separatorView.alpha = alpha
             self.totalTitleLabel.alpha = alpha
             self.totalLabel.alpha = alpha
-            self.tipSeg.alpha = alpha
+            self.sliderView.alpha = alpha
         }
     }
     
     private func applyTheme() {
-        view.backgroundColor = getThemeBackgroundColor()
-        let foregroundColor = getThemeForegroundColor()
-        billLabel.textColor = foregroundColor
-        billField.textColor = foregroundColor
-        tipTitleLabel.textColor = foregroundColor
-        tipLabel.textColor = foregroundColor
-        totalTitleLabel.textColor = foregroundColor
-        totalLabel.textColor = foregroundColor
-        tipSeg.tintColor = getThemeSegColor()
-
-        billField.attributedPlaceholder = NSAttributedString(string: currencyFormatter.currencySymbol, attributes: [NSForegroundColorAttributeName:foregroundColor])
+        let backgroundColor = getThemeBackgroundColor()
+        view.backgroundColor = backgroundColor
+        sliderView.backgroundColor = backgroundColor
+        
+        updateForegrounds(view)
+        let currencySymbol = currencyFormatter.currencySymbol
+        print(currencySymbol)
+        billField.attributedPlaceholder = NSAttributedString(string: currencySymbol, attributes: [NSForegroundColorAttributeName:UIColor ( red: 0.498, green: 0.498, blue: 0.498, alpha: 1.0 )])
+        tipSlider.minimumTrackTintColor = getThemeSegColor()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -68,7 +67,7 @@ class ViewController: UIViewController {
     }
     
     override func viewDidAppear(animated: Bool) {
-        tipSeg.selectedSegmentIndex = getDefaultTipIndex()
+        tipSlider.value = getDefaultTip()
         billChanged()
         billField.becomeFirstResponder()
     }
@@ -84,18 +83,24 @@ class ViewController: UIViewController {
         if (valuesHidden != billText.isEmpty) {
             valuesHidden = !valuesHidden
             updateVisibility(valuesHidden)
-            
-            billField.attributedPlaceholder = NSAttributedString(string: currencyFormatter.currencySymbol, attributes: [NSForegroundColorAttributeName:getThemeForegroundColor()])
         }
         
         let billAmount = (billText as NSString).doubleValue
-        let tip = billAmount * tipPercentages[tipSeg.selectedSegmentIndex]
+        let tipPercent = Int(tipSlider.value)
+        let tip = billAmount * Double(tipPercent) * 0.01
         let total = billAmount + tip
         
         tipLabel.text = currencyFormatter.stringFromNumber(tip)
+        tipTitleLabel.text = "Tip (\(tipPercent)%)"
         totalLabel.text = currencyFormatter.stringFromNumber(total)
         
         updateCachedBill(billAmount)
+    }
+    
+    @IBAction func sliderChanged(slider: UISlider) {
+        let newValue = roundf(slider.value)
+        slider.setValue(newValue, animated: true)
+        billChanged()
     }
     
     @IBAction func dismissKeyboard(sender: AnyObject) {
