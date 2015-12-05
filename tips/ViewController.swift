@@ -10,17 +10,35 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var billLabel: UILabel!
     @IBOutlet weak var billField: UITextField!
+    @IBOutlet weak var tipTitleLabel: UILabel!
     @IBOutlet weak var tipLabel: UILabel!
+    @IBOutlet weak var separatorView: UIView!
+    @IBOutlet weak var totalTitleLabel: UILabel!
     @IBOutlet weak var totalLabel: UILabel!
     @IBOutlet weak var tipSeg: UISegmentedControl!
+    
+    var valuesHidden = true
+    
+    private func updateVisibility(hide: Bool) {
+        let alpha: CGFloat = hide ? 0 : 1
+        UIView.animateWithDuration(0.35) { () -> Void in
+            self.tipTitleLabel.alpha = alpha
+            self.tipLabel.alpha = alpha
+            self.separatorView.alpha = alpha
+            self.totalTitleLabel.alpha = alpha
+            self.totalLabel.alpha = alpha
+            self.tipSeg.alpha = alpha
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         tipLabel.text = "$0.00"
         totalLabel.text = "$0.00"
-        
+                
         billField.becomeFirstResponder()
     }
     
@@ -34,9 +52,16 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    let tipPercentages = [0.18, 0.20, 0.22]
+    
     @IBAction func billChanged(sender: AnyObject) {
-        let billAmount = (billField.text! as NSString).doubleValue
-        let tipPercentages = [0.18, 0.20, 0.22]
+        let tipText = billField.text!
+        if (valuesHidden != tipText.isEmpty) {
+            valuesHidden = !valuesHidden
+            updateVisibility(valuesHidden)
+        }
+        
+        let billAmount = (tipText as NSString).doubleValue
         let tip = billAmount * tipPercentages[tipSeg.selectedSegmentIndex]
         let total = billAmount + tip
         
