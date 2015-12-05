@@ -28,7 +28,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		074C40961C127219009D8F69 /* tips.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = tips.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		074C40961C127219009D8F69 /* Tipster.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tipster.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		074C40991C127219009D8F69 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		074C409B1C127219009D8F69 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		074C409E1C127219009D8F69 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -72,7 +72,7 @@
 		074C40971C127219009D8F69 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				074C40961C127219009D8F69 /* tips.app */,
+				074C40961C127219009D8F69 /* Tipster.app */,
 				074C40AA1C127219009D8F69 /* tipsUITests.xctest */,
 			);
 			name = Products;
@@ -105,9 +105,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		074C40951C127219009D8F69 /* tips */ = {
+		074C40951C127219009D8F69 /* Tipster */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 074C40B31C127219009D8F69 /* Build configuration list for PBXNativeTarget "tips" */;
+			buildConfigurationList = 074C40B31C127219009D8F69 /* Build configuration list for PBXNativeTarget "Tipster" */;
 			buildPhases = (
 				074C40921C127219009D8F69 /* Sources */,
 				074C40931C127219009D8F69 /* Frameworks */,
@@ -117,9 +117,9 @@
 			);
 			dependencies = (
 			);
-			name = tips;
+			name = Tipster;
 			productName = tips;
-			productReference = 074C40961C127219009D8F69 /* tips.app */;
+			productReference = 074C40961C127219009D8F69 /* Tipster.app */;
 			productType = "com.apple.product-type.application";
 		};
 		074C40A91C127219009D8F69 /* tipsUITests */ = {
@@ -174,7 +174,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				074C40951C127219009D8F69 /* tips */,
+				074C40951C127219009D8F69 /* Tipster */,
 				074C40A91C127219009D8F69 /* tipsUITests */,
 			);
 		};
@@ -225,7 +225,7 @@
 /* Begin PBXTargetDependency section */
 		074C40AC1C127219009D8F69 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 074C40951C127219009D8F69 /* tips */;
+			target = 074C40951C127219009D8F69 /* Tipster */;
 			targetProxy = 074C40AB1C127219009D8F69 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -389,7 +389,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		074C40B31C127219009D8F69 /* Build configuration list for PBXNativeTarget "tips" */ = {
+		074C40B31C127219009D8F69 /* Build configuration list for PBXNativeTarget "Tipster" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				074C40B41C127219009D8F69 /* Debug */,
