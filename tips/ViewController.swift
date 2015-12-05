@@ -55,6 +55,7 @@ class ViewController: UIViewController {
         }
 
         billField.attributedPlaceholder = NSAttributedString(string: currencyFormatter.currencySymbol, attributes: [NSForegroundColorAttributeName:foregroundColor])
+        billField.keyboardAppearance = !isThemeDark() ? .Light : .Dark
     }
     
     override func viewWillAppear(animated: Bool) {
