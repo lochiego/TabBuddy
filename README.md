@@ -30,7 +30,7 @@ Here's a walkthrough of implemented user stories:
 
 <img src='http://i.imgur.com/YyzHOMY.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
-GIF created with [GifGrabber]](http://www.gifgrabber.com/).
+GIF created with [GifGrabber](http://www.gifgrabber.com/).
 
 ## Notes
 
