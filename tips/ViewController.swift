@@ -23,6 +23,11 @@ class ViewController: UIViewController {
         
         billField.becomeFirstResponder()
     }
+    
+    override func viewDidAppear(animated: Bool) {
+        tipSeg.selectedSegmentIndex = getDefaultTipIndex()
+        billChanged(0)
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
