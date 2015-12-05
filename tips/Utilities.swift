@@ -13,6 +13,7 @@ private let DEFAULT_TIP_KEY = "defaultTipIndex"
 private let DEFAULT_THEME_KEY = "defaultTheme"
 private let CACHE_EXPIRY_KEY = "expiryDate"
 private let CACHE_BILL_KEY = "cachedBill"
+private let LOCALE_KEY = "locale"
 private let cacheExpiryMins = 10.0
 
 let tipPercentages = [0.18, 0.20, 0.22]
@@ -56,5 +57,17 @@ func getCachedBill() -> Double {
 func updateCachedBill(amount: Double) {
     defaults.setDouble(amount, forKey: CACHE_BILL_KEY)
     defaults.setDouble(NSDate().timeIntervalSince1970 + 60 * cacheExpiryMins, forKey: CACHE_EXPIRY_KEY)
+    defaults.synchronize()
+}
+
+func currentLocale() -> NSLocale {
+    if let storedLocale = defaults.stringForKey(LOCALE_KEY) {
+        return NSLocale(localeIdentifier: storedLocale)
+    }
+    return NSLocale.currentLocale()
+}
+
+func setLocale(locale: NSLocale) {
+    defaults.setValue(locale.localeIdentifier, forKey:LOCALE_KEY)
     defaults.synchronize()
 }
