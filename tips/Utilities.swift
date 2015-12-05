@@ -59,3 +59,19 @@ func updateCachedBill(amount: Double) {
     defaults.setDouble(NSDate().timeIntervalSince1970 + 60 * cacheExpiryMins, forKey: CACHE_EXPIRY_KEY)
     defaults.synchronize()
 }
+
+let textColorSelector = Selector("setTextColor:")
+
+func updateForegrounds(view: UIView) {
+    let foregroundColor = getThemeForegroundColor()
+
+    for subView in view.subviews {
+        if subView.respondsToSelector(textColorSelector) {
+            subView.performSelector(textColorSelector, withObject: foregroundColor)
+        }
+        if let textField = subView as? UITextField {
+            textField.keyboardAppearance = !isThemeDark() ? .Light : .Dark
+        }
+        updateForegrounds(subView)
+    }
+}

@@ -36,28 +36,17 @@ class ViewController: UIViewController {
         }
     }
     
-    let textColorSelector = Selector("setTextColor:")
-
     private func applyTheme() {
         let backgroundColor = getThemeBackgroundColor()
         view.backgroundColor = backgroundColor
         sliderView.backgroundColor = backgroundColor
         
-        let foregroundColor = getThemeForegroundColor()
-        
-        for subView in view.subviews where subView is UILabel || subView is UITextField {
-            if subView.respondsToSelector(textColorSelector) {
-                subView.performSelector(textColorSelector, withObject: foregroundColor)
-            }
-        }
+        updateForegrounds(view)
         
         tipSlider.minimumTrackTintColor = getThemeSegColor()
-        for view in sliderView.subviews where view.isKindOfClass(UILabel) {
-            (view as! UILabel).textColor = foregroundColor
-        }
 
+        let foregroundColor = getThemeForegroundColor()
         billField.attributedPlaceholder = NSAttributedString(string: currencyFormatter.currencySymbol, attributes: [NSForegroundColorAttributeName:foregroundColor])
-        billField.keyboardAppearance = !isThemeDark() ? .Light : .Dark
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -103,7 +92,7 @@ class ViewController: UIViewController {
         
         let billAmount = (billText as NSString).doubleValue
         let tipPercent = Int(tipSlider.value)
-        let tip = billAmount * Double(tipPercent)
+        let tip = billAmount * Double(tipPercent) * 0.01
         let total = billAmount + tip
         
         tipLabel.text = currencyFormatter.stringFromNumber(tip)
