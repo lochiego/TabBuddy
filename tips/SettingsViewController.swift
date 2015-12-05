@@ -12,16 +12,18 @@ import UIKit
 class SettingsViewController: UIViewController {
 
     @IBOutlet weak var tipLabel: UILabel!
-    @IBOutlet weak var tipSeg: UISegmentedControl!
     @IBOutlet weak var themeLabel: UILabel!
     @IBOutlet weak var themeSwitch: UISwitch!
+    @IBOutlet weak var sliderView: UIView!
+    @IBOutlet weak var tipSlider: UISlider!
     
     private func applyTheme() {
-        view.backgroundColor = getThemeBackgroundColor()
-        let foregroundColor = getThemeForegroundColor()
-        tipLabel.textColor = foregroundColor
-        tipSeg.tintColor = getThemeSegColor()
-        themeLabel.textColor = foregroundColor
+        let backgroundColor = getThemeBackgroundColor()
+        view.backgroundColor = backgroundColor
+        sliderView.backgroundColor = backgroundColor
+        
+        updateForegrounds(view)
+        tipSlider.minimumTrackTintColor = getThemeSegColor()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -32,7 +34,9 @@ class SettingsViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        tipSeg.selectedSegmentIndex = getDefaultTipIndex()
+        tipSlider.value = getDefaultTip()
+        changedTip(tipSlider)
+        
         themeSwitch.setOn(isThemeDark(), animated: false)
     }
 
@@ -41,8 +45,11 @@ class SettingsViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    @IBAction func changedTip(sender: AnyObject) {
-        setTipIndex(tipSeg.selectedSegmentIndex)
+    @IBAction func changedTip(slider: UISlider) {
+        let newValue = roundf(slider.value)
+        slider.setValue(newValue, animated: true)
+        tipLabel.text = "Default Tip Amount: \(newValue)%"
+        setDefaultTip(newValue)
     }
     
     @IBAction func hitSwitch() {
