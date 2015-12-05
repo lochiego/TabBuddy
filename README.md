@@ -1,6 +1,6 @@
 # Pre-work - Tipster
 
-TabBuddy is a tip calculator application for iOS.
+Tipster is a tip calculator application for iOS.
 
 Submitted by: Eric Gonzalez
 
