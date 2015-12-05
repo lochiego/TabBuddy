@@ -13,6 +13,7 @@ private let DEFAULT_TIP_KEY = "defaultTipIndex"
 private let DEFAULT_THEME_KEY = "defaultTheme"
 private let CACHE_EXPIRY_KEY = "expiryDate"
 private let CACHE_BILL_KEY = "cachedBill"
+private let LOCALE_KEY = "locale"
 private let cacheExpiryMins = 10.0
 
 let tipPercentages = [0.18, 0.20, 0.22]
