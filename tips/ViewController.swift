@@ -58,6 +58,9 @@ class ViewController: UIViewController {
         currencyFormatter = NSNumberFormatter()
         currencyFormatter.numberStyle = .CurrencyStyle
         currencyFormatter.usesGroupingSeparator = true
+        currencyFormatter.alwaysShowsDecimalSeparator = false
+        currencyFormatter.minimumIntegerDigits = 0
+        currencyFormatter.maximumIntegerDigits = 2
         
         let cachedAmount = getCachedBill()
         billField.text = currencyFormatter.stringFromNumber(cachedAmount)
