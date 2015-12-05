@@ -33,6 +33,22 @@ class ViewController: UIViewController {
         }
     }
     
+    private func applyTheme() {
+        view.backgroundColor = getThemeBackgroundColor()
+        let foregroundColor = getThemeForegroundColor()
+        billLabel.textColor = foregroundColor
+        billField.textColor = foregroundColor
+        tipTitleLabel.textColor = foregroundColor
+        tipLabel.textColor = foregroundColor
+        totalTitleLabel.textColor = foregroundColor
+        totalLabel.textColor = foregroundColor
+        tipSeg.tintColor = getThemeSegColor()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        applyTheme()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -51,8 +67,6 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-    let tipPercentages = [0.18, 0.20, 0.22]
     
     @IBAction func billChanged(sender: AnyObject) {
         let tipText = billField.text!
