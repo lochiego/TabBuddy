@@ -21,8 +21,7 @@ The following **optional** features are implemented:
 
 The following **additional** features are implemented:
 
-- [X] List anything else that you can get done to improve the app functionality!
-* Added light/dark theme
+- [X] Added light/dark theme
 
 ## Video Walkthrough 
 
