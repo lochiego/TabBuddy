@@ -43,6 +43,8 @@ class ViewController: UIViewController {
         totalTitleLabel.textColor = foregroundColor
         totalLabel.textColor = foregroundColor
         tipSeg.tintColor = getThemeSegColor()
+        
+        billField.attributedPlaceholder = NSAttributedString(string: currencyFormatter.currencySymbol, attributes: [NSForegroundColorAttributeName:UIColor.lightTextColor()])
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -63,7 +65,7 @@ class ViewController: UIViewController {
         currencyFormatter.maximumIntegerDigits = 2
         
         let cachedAmount = getCachedBill()
-        billField.text = currencyFormatter.stringFromNumber(cachedAmount)
+        billField.text = cachedAmount == 0 ? "" : String(format:"%.2f", cachedAmount)
         billChanged()
         
         billField.becomeFirstResponder()
@@ -82,22 +84,21 @@ class ViewController: UIViewController {
     @IBAction func billChanged() {
         let billText = billField.text!
         
-        if let billAmount = currencyFormatter.numberFromString(billText)?.doubleValue {
-            if (valuesHidden != (billAmount == 0)) {
+        if (valuesHidden != billText.isEmpty) {
                 valuesHidden = !valuesHidden
                 updateVisibility(valuesHidden)
             }
 
-            let tip = billAmount * tipPercentages[tipSeg.selectedSegmentIndex]
-            let total = billAmount + tip
-            
-            tipLabel.text = String(format: "$%.2f", tip)
-            totalLabel.text = String(format: "$%.2f", total)
-            
-            updateCachedBill(billAmount)
-        }
+        let billAmount = (billText as NSString).doubleValue
+        let tip = billAmount * tipPercentages[tipSeg.selectedSegmentIndex]
+        let total = billAmount + tip
+        
+        tipLabel.text = String(format: "$%.2f", tip)
+        totalLabel.text = String(format: "$%.2f", total)
+        
+        updateCachedBill(billAmount)
     }
-
+    
     @IBAction func dismissKeyboard(sender: AnyObject) {
             view.endEditing(true)
     }
