@@ -48,7 +48,7 @@
                             <view alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2eM-U4-gFm">
                                 <rect key="frame" x="20" y="193" width="280" height="10"/>
                                 <animations/>
-                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.49803921579999999" green="0.49803921579999999" blue="0.49803921579999999" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="$10.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JG9-aG-ksn">
                                 <rect key="frame" x="85" y="230" width="215" height="29"/>
@@ -57,7 +57,7 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="LvT-mR-pF0">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="LvT-mR-pF0">
                                 <rect key="frame" x="148" y="94" width="152" height="30"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -80,7 +80,6 @@
                             </segmentedControl>
                         </subviews>
                         <animations/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="dQI-06-Nj9" appends="YES" id="iRQ-Bk-hwE"/>
@@ -144,12 +143,29 @@
                                     <action selector="changedTip:" destination="gAk-LZ-1lC" eventType="valueChanged" id="UL2-hT-OUO"/>
                                 </connections>
                             </segmentedControl>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Dark Theme" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B9C-dq-fmJ">
+                                <rect key="frame" x="20" y="203" width="94" height="21"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NsQ-Fj-Xb4">
+                                <rect key="frame" x="251" y="198" width="51" height="31"/>
+                                <animations/>
+                                <connections>
+                                    <action selector="hitSwitch" destination="gAk-LZ-1lC" eventType="valueChanged" id="Kyd-CY-WRX"/>
+                                </connections>
+                            </switch>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="eyZ-Im-jZF"/>
                     <connections>
+                        <outlet property="themeLabel" destination="B9C-dq-fmJ" id="efi-lH-Ewt"/>
+                        <outlet property="themeSwitch" destination="NsQ-Fj-Xb4" id="Wt9-KF-vpR"/>
+                        <outlet property="tipLabel" destination="zRs-pv-2OM" id="Gi1-re-v4c"/>
                         <outlet property="tipSeg" destination="edi-fL-ReR" id="2zm-Mj-JCH"/>
                     </connections>
                 </viewController>
