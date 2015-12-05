@@ -43,6 +43,8 @@ class ViewController: UIViewController {
         totalTitleLabel.textColor = foregroundColor
         totalLabel.textColor = foregroundColor
         tipSeg.tintColor = getThemeSegColor()
+
+        billField.attributedPlaceholder = NSAttributedString(string: currencyFormatter.currencySymbol, attributes: [NSForegroundColorAttributeName:foregroundColor])
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -63,13 +65,12 @@ class ViewController: UIViewController {
         let cachedAmount = getCachedBill()
         billField.text = cachedAmount == 0 ? "" : String(format:"%.2f", cachedAmount)
         billChanged()
-        
-        billField.becomeFirstResponder()
     }
     
     override func viewDidAppear(animated: Bool) {
         tipSeg.selectedSegmentIndex = getDefaultTipIndex()
         billChanged()
+        billField.becomeFirstResponder()
     }
 
     override func didReceiveMemoryWarning() {
@@ -84,7 +85,7 @@ class ViewController: UIViewController {
             valuesHidden = !valuesHidden
             updateVisibility(valuesHidden)
             
-            billField.attributedPlaceholder = NSAttributedString(string: currencyFormatter.currencySymbol, attributes: [NSForegroundColorAttributeName:UIColor.lightTextColor()])
+            billField.attributedPlaceholder = NSAttributedString(string: currencyFormatter.currencySymbol, attributes: [NSForegroundColorAttributeName:getThemeForegroundColor()])
         }
         
         let billAmount = (billText as NSString).doubleValue

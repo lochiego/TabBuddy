@@ -75,7 +75,7 @@
                                     <segment title="22%"/>
                                 </segments>
                                 <connections>
-                                    <action selector="billChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="f4C-9U-qpr"/>
+                                    <action selector="billChanged" destination="BYZ-38-t0r" eventType="valueChanged" id="uVW-gh-yQ4"/>
                                 </connections>
                             </segmentedControl>
                         </subviews>
