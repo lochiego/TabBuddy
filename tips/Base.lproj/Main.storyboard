@@ -63,7 +63,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                                 <connections>
-                                    <action selector="billChanged:" destination="BYZ-38-t0r" eventType="editingChanged" id="ubi-Qk-h6g"/>
+                                    <action selector="billChanged" destination="BYZ-38-t0r" eventType="editingChanged" id="S7H-Cn-QTZ"/>
                                 </connections>
                             </textField>
                             <segmentedControl opaque="NO" alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="BC9-Qu-YzT">
