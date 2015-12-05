@@ -8,24 +8,32 @@
 
 import UIKit
 
-let DEFAULT_TIP_KEY = "defaultTipIndex"
-
-let tipPercentages = [0.18, 0.20, 0.22]
-
-func getDefaultTipIndex() -> Int {
-    let defaults = NSUserDefaults.standardUserDefaults()
-    return defaults.integerForKey(DEFAULT_TIP_KEY)
-}
 
 class SettingsViewController: UIViewController {
 
+    @IBOutlet weak var tipLabel: UILabel!
     @IBOutlet weak var tipSeg: UISegmentedControl!
+    @IBOutlet weak var themeLabel: UILabel!
+    @IBOutlet weak var themeSwitch: UISwitch!
+    
+    private func applyTheme() {
+        view.backgroundColor = getThemeBackgroundColor()
+        let foregroundColor = getThemeForegroundColor()
+        tipLabel.textColor = foregroundColor
+        tipSeg.tintColor = getThemeSegColor()
+        themeLabel.textColor = foregroundColor
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        applyTheme()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         tipSeg.selectedSegmentIndex = getDefaultTipIndex()
+        themeSwitch.setOn(isThemeDark(), animated: false)
     }
 
     override func didReceiveMemoryWarning() {
@@ -34,10 +42,14 @@ class SettingsViewController: UIViewController {
     }
 
     @IBAction func changedTip(sender: AnyObject) {
-        let defaults = NSUserDefaults.standardUserDefaults()
-        defaults.setInteger(tipSeg.selectedSegmentIndex, forKey: DEFAULT_TIP_KEY)
-        defaults.synchronize()
+        setTipIndex(tipSeg.selectedSegmentIndex)
     }
+    
+    @IBAction func hitSwitch() {
+        toggleThemeDark()
+        applyTheme()
+    }
+    
 
     /*
     // MARK: - Navigation

@@ -33,42 +33,72 @@ class ViewController: UIViewController {
         }
     }
     
+    private func applyTheme() {
+        view.backgroundColor = getThemeBackgroundColor()
+        let foregroundColor = getThemeForegroundColor()
+        billLabel.textColor = foregroundColor
+        billField.textColor = foregroundColor
+        tipTitleLabel.textColor = foregroundColor
+        tipLabel.textColor = foregroundColor
+        totalTitleLabel.textColor = foregroundColor
+        totalLabel.textColor = foregroundColor
+        tipSeg.tintColor = getThemeSegColor()
+
+        billField.attributedPlaceholder = NSAttributedString(string: currencyFormatter.currencySymbol, attributes: [NSForegroundColorAttributeName:foregroundColor])
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        applyTheme()
+    }
+    
+    var currencyFormatter: NSNumberFormatter!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        tipLabel.text = "$0.00"
-        totalLabel.text = "$0.00"
-                
+        
+        currencyFormatter = NSNumberFormatter()
+        currencyFormatter.numberStyle = .CurrencyStyle
+        currencyFormatter.usesGroupingSeparator = true
+        currencyFormatter.alwaysShowsDecimalSeparator = false
+        
+        let cachedAmount = getCachedBill()
+        billField.text = cachedAmount == 0 ? "" : String(format:"%.2f", cachedAmount)
+        billChanged()
+        
         billField.becomeFirstResponder()
     }
     
     override func viewDidAppear(animated: Bool) {
         tipSeg.selectedSegmentIndex = getDefaultTipIndex()
-        billChanged(0)
+        billChanged()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-    let tipPercentages = [0.18, 0.20, 0.22]
     
-    @IBAction func billChanged(sender: AnyObject) {
-        let tipText = billField.text!
-        if (valuesHidden != tipText.isEmpty) {
+    @IBAction func billChanged() {
+        let billText = billField.text!
+
+        if (valuesHidden != billText.isEmpty) {
             valuesHidden = !valuesHidden
             updateVisibility(valuesHidden)
+            
+            billField.attributedPlaceholder = NSAttributedString(string: currencyFormatter.currencySymbol, attributes: [NSForegroundColorAttributeName:getThemeForegroundColor()])
         }
         
-        let billAmount = (tipText as NSString).doubleValue
+        let billAmount = (billText as NSString).doubleValue
         let tip = billAmount * tipPercentages[tipSeg.selectedSegmentIndex]
         let total = billAmount + tip
         
-        tipLabel.text = String(format: "$%.2f", tip)
-        totalLabel.text = String(format: "$%.2f", total)
+        tipLabel.text = currencyFormatter.stringFromNumber(tip)
+        totalLabel.text = currencyFormatter.stringFromNumber(total)
+        
+        updateCachedBill(billAmount)
     }
-
+    
     @IBAction func dismissKeyboard(sender: AnyObject) {
             view.endEditing(true)
     }
