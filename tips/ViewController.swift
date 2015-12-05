@@ -17,7 +17,9 @@ class ViewController: UIViewController {
     @IBOutlet weak var separatorView: UIView!
     @IBOutlet weak var totalTitleLabel: UILabel!
     @IBOutlet weak var totalLabel: UILabel!
-    @IBOutlet weak var tipSeg: UISegmentedControl!
+//    @IBOutlet weak var tipSeg: UISegmentedControl!
+    @IBOutlet weak var tipSlider: UISlider!
+    @IBOutlet weak var sliderView: UIView!
     
     var valuesHidden = true
     
@@ -29,12 +31,16 @@ class ViewController: UIViewController {
             self.separatorView.alpha = alpha
             self.totalTitleLabel.alpha = alpha
             self.totalLabel.alpha = alpha
-            self.tipSeg.alpha = alpha
+//            self.tipSeg.alpha = alpha
+            self.sliderView.alpha = alpha
         }
     }
     
     private func applyTheme() {
-        view.backgroundColor = getThemeBackgroundColor()
+        let backgroundColor = getThemeBackgroundColor()
+        view.backgroundColor = backgroundColor
+        sliderView.backgroundColor = backgroundColor
+        
         let foregroundColor = getThemeForegroundColor()
         billLabel.textColor = foregroundColor
         billField.textColor = foregroundColor
@@ -42,7 +48,11 @@ class ViewController: UIViewController {
         tipLabel.textColor = foregroundColor
         totalTitleLabel.textColor = foregroundColor
         totalLabel.textColor = foregroundColor
-        tipSeg.tintColor = getThemeSegColor()
+//        tipSeg.tintColor = getThemeSegColor()
+        tipSlider.minimumTrackTintColor = getThemeSegColor()
+        for view in sliderView.subviews where view.isKindOfClass(UILabel) {
+            (view as! UILabel).textColor = foregroundColor
+        }
 
         billField.attributedPlaceholder = NSAttributedString(string: currencyFormatter.currencySymbol, attributes: [NSForegroundColorAttributeName:foregroundColor])
     }
@@ -68,7 +78,7 @@ class ViewController: UIViewController {
     }
     
     override func viewDidAppear(animated: Bool) {
-        tipSeg.selectedSegmentIndex = getDefaultTipIndex()
+//        tipSeg.selectedSegmentIndex = getDefaultTipIndex()
         billChanged()
         billField.becomeFirstResponder()
     }
@@ -89,7 +99,7 @@ class ViewController: UIViewController {
         }
         
         let billAmount = (billText as NSString).doubleValue
-        let tip = billAmount * tipPercentages[tipSeg.selectedSegmentIndex]
+        let tip = billAmount * tipPercentages[0]//tipSeg.selectedSegmentIndex]
         let total = billAmount + tip
         
         tipLabel.text = currencyFormatter.stringFromNumber(tip)
