@@ -16,11 +16,15 @@ private let CACHE_BILL_KEY = "cachedBill"
 private let LOCALE_KEY = "locale"
 private let cacheExpiryMins = 10.0
 
-private let tipPercentages = [5.0, 10.0, 15.0, 20.0, 25.0]
 let defaults = NSUserDefaults.standardUserDefaults()
 
 func getDefaultTip() -> Float {
-    return defaults.floatForKey(DEFAULT_TIP_KEY)
+    var tip = defaults.floatForKey(DEFAULT_TIP_KEY)
+    if tip == 0 {
+        tip = 15.0
+        setDefaultTip(tip)
+    }
+    return tip
 }
 
 func setDefaultTip(tip: Float) {
