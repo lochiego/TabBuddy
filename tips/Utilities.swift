@@ -11,6 +11,10 @@ import UIKit
 
 private let DEFAULT_TIP_KEY = "defaultTipIndex"
 private let DEFAULT_THEME_KEY = "defaultTheme"
+private let CACHE_EXPIRY_KEY = "expiryDate"
+private let CACHE_BILL_KEY = "cachedBill"
+private let cacheExpiryMins = 10.0
+
 let tipPercentages = [0.18, 0.20, 0.22]
 let defaults = NSUserDefaults.standardUserDefaults()
 
@@ -42,4 +46,15 @@ func getThemeForegroundColor() -> UIColor {
 
 func getThemeSegColor() -> UIColor? {
     return isThemeDark() ? UIColor.greenColor() : nil
+}
+
+func getCachedBill() -> Double {
+    let expiryDate = defaults.doubleForKey(CACHE_EXPIRY_KEY)
+    return expiryDate < NSDate().timeIntervalSince1970 ? 0.0 : defaults.doubleForKey(CACHE_BILL_KEY)
+}
+
+func updateCachedBill(amount: Double) {
+    defaults.setDouble(amount, forKey: CACHE_BILL_KEY)
+    defaults.setDouble(NSDate().timeIntervalSince1970 + 60 * cacheExpiryMins, forKey: CACHE_EXPIRY_KEY)
+    defaults.synchronize()
 }

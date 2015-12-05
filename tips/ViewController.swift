@@ -52,15 +52,17 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        tipLabel.text = "$0.00"
-        totalLabel.text = "$0.00"
-                
+        
+        let cachedAmount = getCachedBill()
+        billField.text = cachedAmount == 0 ? "" : "\(cachedAmount)"
+        billChanged()
+        
         billField.becomeFirstResponder()
     }
     
     override func viewDidAppear(animated: Bool) {
         tipSeg.selectedSegmentIndex = getDefaultTipIndex()
-        billChanged(0)
+        billChanged()
     }
 
     override func didReceiveMemoryWarning() {
@@ -68,19 +70,21 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func billChanged(sender: AnyObject) {
-        let tipText = billField.text!
-        if (valuesHidden != tipText.isEmpty) {
+    @IBAction func billChanged() {
+        let billText = billField.text!
+        if (valuesHidden != billText.isEmpty) {
             valuesHidden = !valuesHidden
             updateVisibility(valuesHidden)
         }
         
-        let billAmount = (tipText as NSString).doubleValue
+        let billAmount = (billText as NSString).doubleValue
         let tip = billAmount * tipPercentages[tipSeg.selectedSegmentIndex]
         let total = billAmount + tip
         
         tipLabel.text = String(format: "$%.2f", tip)
         totalLabel.text = String(format: "$%.2f", total)
+        
+        updateCachedBill(billAmount)
     }
 
     @IBAction func dismissKeyboard(sender: AnyObject) {
