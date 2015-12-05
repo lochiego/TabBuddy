@@ -61,8 +61,6 @@ class ViewController: UIViewController {
         currencyFormatter.numberStyle = .CurrencyStyle
         currencyFormatter.usesGroupingSeparator = true
         currencyFormatter.alwaysShowsDecimalSeparator = false
-        currencyFormatter.minimumIntegerDigits = 0
-        currencyFormatter.maximumIntegerDigits = 2
         
         let cachedAmount = getCachedBill()
         billField.text = cachedAmount == 0 ? "" : String(format:"%.2f", cachedAmount)
@@ -85,16 +83,16 @@ class ViewController: UIViewController {
         let billText = billField.text!
         
         if (valuesHidden != billText.isEmpty) {
-                valuesHidden = !valuesHidden
-                updateVisibility(valuesHidden)
-            }
-
+            valuesHidden = !valuesHidden
+            updateVisibility(valuesHidden)
+        }
+        
         let billAmount = (billText as NSString).doubleValue
         let tip = billAmount * tipPercentages[tipSeg.selectedSegmentIndex]
         let total = billAmount + tip
         
-        tipLabel.text = String(format: "$%.2f", tip)
-        totalLabel.text = String(format: "$%.2f", total)
+        tipLabel.text = currencyFormatter.stringFromNumber(tip)
+        totalLabel.text = currencyFormatter.stringFromNumber(total)
         
         updateCachedBill(billAmount)
     }
